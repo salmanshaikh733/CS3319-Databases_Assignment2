@@ -1,0 +1,70 @@
+USE mshaik52assign2db;
+SELECT * FROM Patient;
+LOAD DATA LOCAL INFILE "patientData.txt" INTO TABLE Patient FIELDS TERMINATED BY ',' ;
+DELETE FROM Patient WHERE OHIPNUMBER="";
+SELECT * FROM Patient;
+INSERT INTO Patient VALUES (123456789, "Salman", "Shaikh");
+
+
+SELECT * FROM Doctor;
+INSERT INTO Doctor (FirstName,LastName,Speciality,LicenseNumber,DateOfLicense) VALUES("Bernie","Kavorikan","Urologist","RD34","Sept 9, 1980");
+INSERT INTO Doctor (FirstName,LastName,Speciality,LicenseNumber,DateOfLicense) VALUES("Joey","Shabado","Podiatrist","GD56","June 24, 1960");
+INSERT INTO Doctor (FirstName,LastName,Speciality,LicenseNumber,DateOfLicense) VALUES("Ross","Clooney","Surgeon","HT45","June 20, 1987");
+INSERT INTO Doctor (FirstName,LastName,Speciality,LicenseNumber,DateOfLicense) VALUES("Ben","Spock","Pediatrician","YT67","Feb 20, 1980");
+INSERT INTO Doctor (FirstName,LastName,Speciality,LicenseNumber,DateOfLicense) VALUES("Mandy","Webster","Surgeon","JK78","August 8, 1990");
+INSERT INTO Doctor (FirstName,LastName,Speciality,LicenseNumber,DateOfLicense) VALUES("Colleen","Aziz","Surgeon","SE66","August 24, 1989");
+INSERT INTO Doctor (FirstName,LastName,Speciality,LicenseNumber,DateOfLicense) VALUES("Frederick","Banting","Orthopedic Surgeon","FB18","Sept 15 1918");
+SELECT * FROM Doctor;
+
+SELECT * FROM Hospital;
+INSERT INTO Hospital (HospitalName, City,Province,NumBeds,HospitalCode) VALUES("St. Joseph","London","ON",1000,"BBC");
+INSERT INTO Hospital (HospitalName, City,Province,NumBeds,HospitalCode) VALUES("Victoria","London","ON",1600,"ABC");
+INSERT INTO Hospital (HospitalName, City,Province,NumBeds,HospitalCode) VALUES("Victoria","Victoria","BC",1200,"DDE");
+SELECT * FROM Hospital;
+
+
+SELECT * FROM Treats;
+INSERT INTO Treats VALUES("GD56",110112113);
+INSERT INTO Treats VALUES("HT45",444555666);
+INSERT INTO Treats VALUES("JK78",444555666);
+INSERT INTO Treats VALUES("SE66",111222333);
+INSERT INTO Treats Values("YT67",111222333);
+INSERT INTO Treats VALUES("JK78",111222333);
+INSERT INTO Treats VALUES("GD56",333444555);
+INSERT INTO Treats VALUES("YT67",667766777);
+INSERT INTO Treats VALUES("JK78",667766777);
+INSERT INTO Treats VALUES("GD56",667766777);
+INSERT INTO Treats VALUES("YT67",111222111);
+INSERT INTO Treats VALUES("YT67",123456789);
+SELECT * FROM Treats;
+
+SELECT * FROM Doctor;
+UPDATE Doctor SET HospitalCode="BBC" WHERE FirstName="Bernie";
+UPDATE Doctor SET HospitalCode="DDE" WHERE FirstName="Ross";
+UPDATE Doctor SET HospitalCode="DDE" WHERE FirstName="Ben";
+UPDATE Doctor SET HospitalCode="ABC" WHERE FirstName="Colleen";
+UPDATE Doctor SET HospitalCode="BBC" WHERE FirstName="Mandy";
+UPDATE Doctor SET HospitalCode="ABC" WHERE FirstName="Frederick";
+SELECT * FROM Doctor;
+
+SELECT * FROM Hospital;
+UPDATE Hospital SET LicenseNumber="GD56" WHERE HospitalCode="BBC";
+UPDATE Hospital SET LicenseNumber="YT67" WHERE HospitalCode="DDE";
+UPDATE Hospital SET LicenseNumber="SE66" WHERE HospitalCode="ABC";
+SELECT * FROM Hospital;
+
+SELECT * FROM Hospital;
+UPDATE Hospital SET DateOfStart="Sept 10, 1999" WHERE HospitalCode="BBC";
+UPDATE Hospital SET DateOfStart="Dec 7, 1997" WHERE HospitalCode="DDE";
+UPDATE Hospital SET DateOfStart="Dec 5, 1994" WHERE HospitalCode="ABC";
+SELECT * FROM Hospital;
+
+
+
+
+SELECT * FROM Patient;
+UPDATE Patient SET LastName="Brown" WHERE OHIPNUMBER=111222111;
+SELECT * FROM Patient;
+SELECT * FROM Treats;
+UPDATE Treats SET LicenseNumber = (SELECT LicenseNumber FROM Doctor WHERE LastName="Clooney") WHERE LicenseNumber =(SELECT LicenseNumber FROM Doctor WHERE LastName="Spock");
+SELECT * FROM Treats;

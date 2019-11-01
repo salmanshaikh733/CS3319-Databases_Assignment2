@@ -1,0 +1,29 @@
+USE mshaik52assign2db;
+
+-- query1
+SELECT LastName FROM Patient;
+-- query2
+SELECT DISTINCT LastName FROM Patient;
+-- query3
+SELECT * FROM Doctor ORDER BY LastName;
+-- query4
+SELECT HospitalName, HospitalCode FROM Hospital WHERE NumBeds>1500;
+-- query5
+SELECT FirstName,LastName FROM Doctor WHERE HospitalCode=(SELECT HospitalCode FROM Hospital WHERE HospitalName= "St. Joseph");
+-- query6
+SELECT FirstName,LastName FROM Patient WHERE LastName LIKE 'G%';
+-- query7
+SELECT FirstName,LastName FROM Patient WHERE OHIPNUMBER IN (SELECT OHIPNUMBER FROM Treats WHERE LicenseNumber="HT45");
+-- query8
+SELECT HospitalName,City,LastName FROM Hospital,Doctor WHERE Hospital.LicenseNumber=Doctor.LicenseNumber;
+-- query9
+SELECT SUM(NumBeds) AS "Total Beds"  FROM Hospital;
+-- query10
+SELECT Patient.FirstName,Doctor.FirstName From Patient,Doctor,Treats,Hospital WHERE Patient.OHIPNUMBER=Treats.OHIPNUMBER AND Doctor.LicenseNumber=Treats.LicenseNumber AND Doctor.LicenseNumber=Hospital.LicenseNumber;
+-- query11
+SELECT DISTINCT Doctor.FirstName,Doctor.LastName FROM Doctor,Hospital WHERE Doctor.Speciality="Surgeon" AND Hospital.HospitalName="Victoria";
+-- query12
+SELECT FirstName FROM Doctor WHERE LicenseNumber NOT IN (SELECT LicenseNumber FROM Treats);
+-- query13
+SELECT LastName,FirstName FROM Doctor WHERE LicenseNumber IN (SELECT LicenseNumber FROM Treats GROUP BY LicenseNumber HAVING (COUNT(LicenseNumber)>1));
+

@@ -1,0 +1,22 @@
+SHOW DATABASES;
+DROP DATABASE IF EXISTS mshaik52assign2db;
+CREATE DATABASE mshaik52assign2db;
+USE mshaik52assign2db;
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON yourwesternuseridassign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+SHOW tables;
+CREATE TABLE Doctor(FirstName VARCHAR(20), LastName VARCHAR(20), Speciality VARCHAR(30),LicenseNumber CHAR(4), HospitalCode CHAR(3),DateOfLicense VARCHAR(20), PRIMARY KEY (LicenseNumber));
+CREATE TABLE Hospital(HospitalName VARCHAR(20),City VARCHAR(20),Province CHAR(2),NumBeds INT,HospitalCode CHAR(3),LicenseNumber CHAR(4),DateOfStart VARCHAR(20), PRIMARY KEY(HospitalCode));
+CREATE TABLE Patient(OHIPNUMBER INT(9),FirstName VARCHAR(20), LastName VARCHAR(20),PRIMARY KEY(OHIPNUMBER));
+ALTER TABLE Doctor ADD FOREIGN KEY(HospitalCode) REFERENCES Hospital(HospitalCode);
+ALTER TABLE Hospital ADD FOREIGN KEY(LicenseNumber) REFERENCES Doctor(LicenseNumber);
+CREATE TABLE Treats(LicenseNumber CHAR(4),OHIPNUMBER INT(9),PRIMARY KEY(LicenseNumber,OHIPNumber),FOREIGN KEY(LicenseNumber) REFERENCES Doctor(LicenseNumber) ON DELETE CASCADE,FOREIGN KEY(OHIPNUMBER) REFERENCES Patient(OHIPNUMBER));
+
+
+
+
+
+

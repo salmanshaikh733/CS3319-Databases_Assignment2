@@ -1,0 +1,132 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+DELETE FROM Doctor WHERE DateOfLicense="June 24,1960"
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+DELETE FROM Doctor WHERE DateOfLicense="Sept 15, 1918"
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+DELETE FROM Doctor WHERE DateOfLicense="Feb 20, 1955"
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+ERROR 1050 (42S01) at line 8: Table 'Assignment2View1' already exists
+--------------
+CREATE VIEW Assignment2View1 AS SELECT Patient.FirstName,Patient.LastName AS "Patient LastName"  , Doctor.LastName AS "Doctor Last Name"
+,Hospital.HospitalName FROM Patient,Treats,Doctor,Hospital WHERE Patient.OHIPNUMBER=Treats.OHIPNUMBER AND Doctor.LicenseNumber=Treats.LicenseNumber AND Doctor.LicenseNumber != "SE66" AND Treats.LicenseNumber=Hospital.LicenseNumber
+--------------
+
+--------------
+SELECT * FROM Assignment2View1
+--------------
+
++-----------+------------------+------------------+--------------+
+| FirstName | Patient LastName | Doctor Last Name | HospitalName |
++-----------+------------------+------------------+--------------+
+| Bill      | Gellar           | Shabado          | St. Joseph   |
+| Colleen   | Gellar           | Shabado          | St. Joseph   |
+| Scotty    | Bing             | Shabado          | St. Joseph   |
++-----------+------------------+------------------+--------------+
+3 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM Doctor
+--------------
+
++-----------+-----------+--------------------+---------------+--------------+-----------------+
+| FirstName | LastName  | Speciality         | LicenseNumber | HospitalCode | DateOfLicense   |
++-----------+-----------+--------------------+---------------+--------------+-----------------+
+| Frederick | Banting   | Orthopedic Surgeon | FB18          | ABC          | Sept 15 1918    |
+| Joey      | Shabado   | Podiatrist         | GD56          | NULL         | June 24, 1960   |
+| Mandy     | Webster   | Surgeon            | JK78          | BBC          | August 8, 1990  |
+| Bernie    | Kavorikan | Urologist          | RD34          | BBC          | Sept 9, 1980    |
+| Colleen   | Aziz      | Surgeon            | SE66          | ABC          | August 24, 1989 |
+| Ben       | Spock     | Pediatrician       | YT67          | DDE          | Feb 20, 1980    |
++-----------+-----------+--------------------+---------------+--------------+-----------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM Treats
+--------------
+
++---------------+------------+
+| LicenseNumber | OHIPNUMBER |
++---------------+------------+
+| GD56          |  110112113 |
+| JK78          |  111222333 |
+| SE66          |  111222333 |
+| GD56          |  333444555 |
+| JK78          |  444555666 |
+| GD56          |  667766777 |
+| JK78          |  667766777 |
++---------------+------------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM Doctor
+--------------
+
++-----------+-----------+--------------------+---------------+--------------+-----------------+
+| FirstName | LastName  | Speciality         | LicenseNumber | HospitalCode | DateOfLicense   |
++-----------+-----------+--------------------+---------------+--------------+-----------------+
+| Frederick | Banting   | Orthopedic Surgeon | FB18          | ABC          | Sept 15 1918    |
+| Joey      | Shabado   | Podiatrist         | GD56          | NULL         | June 24, 1960   |
+| Mandy     | Webster   | Surgeon            | JK78          | BBC          | August 8, 1990  |
+| Bernie    | Kavorikan | Urologist          | RD34          | BBC          | Sept 9, 1980    |
+| Colleen   | Aziz      | Surgeon            | SE66          | ABC          | August 24, 1989 |
+| Ben       | Spock     | Pediatrician       | YT67          | DDE          | Feb 20, 1980    |
++-----------+-----------+--------------------+---------------+--------------+-----------------+
+6 rows in set (0.00 sec)
+
+--------------
+DELETE FROM Doctor WHERE LastName="Clooney"
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM Doctor
+--------------
+
++-----------+-----------+--------------------+---------------+--------------+-----------------+
+| FirstName | LastName  | Speciality         | LicenseNumber | HospitalCode | DateOfLicense   |
++-----------+-----------+--------------------+---------------+--------------+-----------------+
+| Frederick | Banting   | Orthopedic Surgeon | FB18          | ABC          | Sept 15 1918    |
+| Joey      | Shabado   | Podiatrist         | GD56          | NULL         | June 24, 1960   |
+| Mandy     | Webster   | Surgeon            | JK78          | BBC          | August 8, 1990  |
+| Bernie    | Kavorikan | Urologist          | RD34          | BBC          | Sept 9, 1980    |
+| Colleen   | Aziz      | Surgeon            | SE66          | ABC          | August 24, 1989 |
+| Ben       | Spock     | Pediatrician       | YT67          | DDE          | Feb 20, 1980    |
++-----------+-----------+--------------------+---------------+--------------+-----------------+
+6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM Treats
+--------------
+
++---------------+------------+
+| LicenseNumber | OHIPNUMBER |
++---------------+------------+
+| GD56          |  110112113 |
+| JK78          |  111222333 |
+| SE66          |  111222333 |
+| GD56          |  333444555 |
+| JK78          |  444555666 |
+| GD56          |  667766777 |
+| JK78          |  667766777 |
++---------------+------------+
+7 rows in set (0.00 sec)
+
+ERROR 1451 (23000) at line 17: Cannot delete or update a parent row: a foreign key constraint fails (`mshaik52assign2db`.`Hospital`, CONSTRAINT `Hospital_ibfk_1` FOREIGN KEY (`LicenseNumber`) REFERENCES `Doctor` (`LicenseNumber`))
+--------------
+DELETE FROM Doctor WHERE Speciality="Surgeon"
+--------------
+
+Bye

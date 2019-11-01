@@ -1,0 +1,104 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SHOW DATABASES
+--------------
+
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mshaik52assign2db  |
+| mysql              |
+| newDatabase        |
+| performance_schema |
+| vetoffice          |
++--------------------+
+6 rows in set (0.00 sec)
+
+--------------
+DROP DATABASE IF EXISTS mshaik52assign2db
+--------------
+
+Query OK, 4 rows affected (0.21 sec)
+
+--------------
+CREATE DATABASE mshaik52assign2db
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+GRANT USAGE ON *.* TO 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+DROP USER 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+GRANT ALL PRIVILEGES ON yourwesternuseridassign2db.* TO 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+FLUSH PRIVILEGES
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SHOW tables
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+CREATE TABLE Doctor(FirstName VARCHAR(20), LastName VARCHAR(20), Speciality VARCHAR(30),LicenseNumber CHAR(4), HospitalCode CHAR(3),DateOfLicense VARCHAR(20), PRIMARY KEY (LicenseNumber))
+--------------
+
+Query OK, 0 rows affected (0.06 sec)
+
+--------------
+CREATE TABLE Hospital(HospitalName VARCHAR(20),City VARCHAR(20),Province CHAR(2),NumBeds INT,HospitalCode CHAR(3),LicenseNumber CHAR(4),DateOfStart VARCHAR(20), PRIMARY KEY(HospitalCode))
+--------------
+
+Query OK, 0 rows affected (0.05 sec)
+
+--------------
+CREATE TABLE Patient(OHIPNUMBER INT(9),FirstName VARCHAR(20), LastName VARCHAR(20),PRIMARY KEY(OHIPNUMBER))
+--------------
+
+Query OK, 0 rows affected (0.05 sec)
+
+--------------
+ALTER TABLE Doctor ADD FOREIGN KEY(HospitalCode) REFERENCES Hospital(HospitalCode)
+--------------
+
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+ALTER TABLE Hospital ADD FOREIGN KEY(LicenseNumber) REFERENCES Doctor(LicenseNumber)
+--------------
+
+Query OK, 0 rows affected (0.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+CREATE TABLE Treats(LicenseNumber CHAR(4),OHIPNUMBER INT(9),PRIMARY KEY(LicenseNumber,OHIPNumber),FOREIGN KEY(LicenseNumber) REFERENCES Doctor(LicenseNumber) ON DELETE CASCADE,FOREIGN KEY(OHIPNUMBER) REFERENCES Patient(OHIPNUMBER))
+--------------
+
+Query OK, 0 rows affected (0.06 sec)
+
+Bye

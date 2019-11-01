@@ -1,0 +1,18 @@
+-- select the database
+USE mshaik52assign2db;
+DELETE FROM Doctor WHERE DateOfLicense="June 24,1960";
+DELETE FROM Doctor WHERE DateOfLicense="Sept 15, 1918";
+DELETE FROM Doctor WHERE DateOfLicense="Feb 20, 1955";
+-- Delete gives an error because both rows have a foreign key in the hospital table.
+-- creata a view 
+CREATE VIEW Assignment2View1 AS SELECT Patient.FirstName,Patient.LastName AS "Patient LastName"  , Doctor.LastName AS "Doctor Last Name"
+,Hospital.HospitalName FROM Patient,Treats,Doctor,Hospital WHERE Patient.OHIPNUMBER=Treats.OHIPNUMBER AND Doctor.LicenseNumber=Treats.LicenseNumber AND Doctor.LicenseNumber != "SE66" AND Treats.LicenseNumber=Hospital.LicenseNumber;
+SELECT * FROM Assignment2View1;
+SELECT * FROM Doctor;
+SELECT * FROM Treats;
+SELECT * FROM Doctor;
+DELETE FROM Doctor WHERE LastName="Clooney";
+SELECT * FROM Doctor;
+SELECT * FROM Treats;
+DELETE FROM Doctor WHERE Speciality="Surgeon";
+-- cannot delete head doctors from the table.
